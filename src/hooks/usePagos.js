@@ -5,33 +5,39 @@ const STORAGE_KEY = 'pagos';
 export function usePagos() {
   const [pagos, setPagos] = useState({ bancos: [], dian: [] });
 
+  // Leer del localStorage solo una vez
   useEffect(() => {
-    const datos = JSON.parse(localStorage.getItem(STORAGE_KEY)) || { bancos: [], dian: [] };
-    setPagos(datos);
+    const datos = localStorage.getItem(STORAGE_KEY);
+    if (datos) {
+      setPagos(JSON.parse(datos));
+    }
   }, []);
 
+  // Guardar automáticamente cuando se actualice el estado
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(pagos));
   }, [pagos]);
 
-  const agregarPago = (tipo, nuevoPago) => {
-    setPagos(prev => ({
+  // Funciones CRUD
+  const agregarPago = (tipo, nuevo) => {
+    const nuevoPago = { ...nuevo, id: Date.now() };
+    setPagos((prev) => ({
       ...prev,
-      [tipo]: [...prev[tipo], { ...nuevoPago, id: Date.now() }],
+      [tipo]: [...prev[tipo], nuevoPago],
     }));
   };
 
-  const editarPago = (tipo, pagoEditado) => {
-    setPagos(prev => ({
+  const editarPago = (tipo, editado) => {
+    setPagos((prev) => ({
       ...prev,
-      [tipo]: prev[tipo].map(p => (p.id === pagoEditado.id ? pagoEditado : p)),
+      [tipo]: prev[tipo].map((p) => (p.id === editado.id ? editado : p)),
     }));
   };
 
   const eliminarPago = (tipo, id) => {
-    setPagos(prev => ({
+    setPagos((prev) => ({
       ...prev,
-      [tipo]: prev[tipo].filter(p => p.id !== id),
+      [tipo]: prev[tipo].filter((p) => p.id !== id),
     }));
   };
 
