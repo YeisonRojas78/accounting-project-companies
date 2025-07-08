@@ -1,18 +1,85 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f2f2f2;
+/* src/index.css */
+@import './components/modales/variables.css'; 
+
+/* Resto de tu código CSS... */
+/* Reset Básico */
+*, *::before, *::after {
+  box-sizing: border-box;
   margin: 0;
-  padding: 20px;
+  padding: 0;
 }
 
-.card, .modal, .lista-pagos {
-  background-color: white;
-  padding: 16px;
-  margin: 10px 0;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; /* Fuente moderna y legible */
+  color: var(--color-text-dark);
+  background-color: var(--color-background-light); /* Fondo general de la página */
+  padding: var(--spacing-md); /* Padding alrededor del #root */
 }
 
-button {
-  margin-right: 8px;
+/* Estilos de Tipografía */
+h1, h2, h3 {
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-sm);
+  font-weight: 600;
+}
+
+h1 { font-size: 2.5rem; }
+h3 { font-size: 1.5rem; }
+
+p {
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-xs);
+}
+
+/* Estilos de Layout (Root y App/PagosView) */
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--spacing-md);
+  text-align: center;
+  background-color: var(--color-white);
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+}
+
+.app, .pagos-view {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+/* Antiguos estilos del logo si los necesitas, adaptados a variables */
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em var(--color-secondary));
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa); /* Color específico de React */
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.read-the-docs {
+  color: var(--color-text-light);
 }

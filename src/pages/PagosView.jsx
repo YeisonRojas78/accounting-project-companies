@@ -13,26 +13,39 @@ export default function PagosView() {
 
   return (
     <div className="pagos-view">
-      <CardPago titulo="Pagos a Bancos" tipo="bancos" pagos={pagos.bancos}
+      {/* Tarjeta para Pagos a Bancos */}
+      <CardPago
+        titulo="Pagos a Bancos"
+        tipo="bancos"
+        pagos={pagos.bancos}
         onCrear={(tipo) => { setTipoModal(tipo); setModo('crear'); setPagoActual(null); }}
         onVer={(tipo) => setMostrarLista(tipo)}
       />
 
-      <CardPago titulo="Pagos a DIAN" tipo="dian" pagos={pagos.dian}
+      {/* Tarjeta para Pagos a DIAN */}
+      <CardPago
+        titulo="Pagos a DIAN"
+        tipo="dian"
+        pagos={pagos.dian}
         onCrear={(tipo) => { setTipoModal(tipo); setModo('crear'); setPagoActual(null); }}
         onVer={(tipo) => setMostrarLista(tipo)}
       />
 
+      {/* Renderizado condicional del ModalPago y su fondo */}
       {tipoModal && (
-        <ModalPago
-          tipo={tipoModal}
-          modo={modo}
-          pago={pagoActual}
-          onGuardar={modo === 'crear' ? agregarPago : editarPago}
-          onCerrar={() => setTipoModal(null)}
-        />
+        <> {/* Un Fragment (<>) se usa para retornar múltiples elementos sin añadir un div extra al DOM */}
+          <div className="modal-backdrop"></div> {/* Este es el fondo oscuro */}
+          <ModalPago
+            tipo={tipoModal}
+            modo={modo}
+            pago={pagoActual}
+            onGuardar={modo === 'crear' ? agregarPago : editarPago}
+            onCerrar={() => setTipoModal(null)}
+          />
+        </>
       )}
 
+      {/* Renderizado condicional de la ListaPagos */}
       {mostrarLista && (
         <ListaPagos
           tipo={mostrarLista}
@@ -40,7 +53,7 @@ export default function PagosView() {
           onEditar={(pago) => {
             setPagoActual(pago);
             setModo('editar');
-            setTipoModal(mostrarLista);
+            setTipoModal(mostrarLista); // Al editar desde la lista, también abrimos el modal
           }}
           onEliminar={eliminarPago}
           onCerrar={() => setMostrarLista(null)}

@@ -1,42 +1,176 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* src/App.css */
+
+/* Estilos para CardPago */
+.card {
+  background-color: var(--color-white);
+  padding: var(--spacing-md);
+  margin: var(--spacing-xs) 0;
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 350px;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.card h3 {
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-xs);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.card p {
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-sm);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* Estilos para Botones */
+button {
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  margin: 0 var(--spacing-xs);
+  min-width: 100px;
 }
 
-.card {
-  padding: 2em;
+button:hover {
+  background-color: var(--color-primary);
+  transform: translateY(-1px);
 }
 
-.read-the-docs {
-  color: #888;
+button:active {
+  transform: translateY(0);
+}
+
+button.btn-secondary {
+  background-color: var(--color-background-dark);
+  color: var(--color-text-light);
+  border: 1px solid var(--color-border);
+}
+
+button.btn-secondary:hover {
+  background-color: var(--color-border);
+  color: var(--color-text-dark);
+}
+
+button.btn-delete {
+  background-color: #ef4444;
+  color: var(--color-white);
+}
+
+button.btn-delete:hover {
+  background-color: #dc2626;
+}
+
+/* Estilos para ModalPago */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--color-white);
+  padding: var(--spacing-lg);
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  z-index: 1000;
+  width: 90%;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  border: 1px solid var(--color-border);
+}
+
+/* Para el fondo oscuro semitransparente detrás del modal */
+.modal-backdrop { /* Tendrías que añadir un div con esta clase en tu JSX junto al modal */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+}
+
+.modal h3 {
+  margin-top: 0;
+  color: var(--color-primary);
+  text-align: center;
+}
+
+.modal input[type="text"],
+.modal input[type="number"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 1rem;
+  color: var(--color-text-dark);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.modal input[type="text"]:focus,
+.modal input[type="number"]:focus {
+  outline: none;
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.modal button {
+  width: auto;
+  align-self: center;
+}
+
+.modal button:first-of-type {
+  background-color: var(--color-secondary);
+}
+
+/* Estilos para ListaPagos */
+.lista-pagos {
+  background-color: var(--color-white);
+  padding: var(--spacing-md);
+  margin: var(--spacing-xs) 0;
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+  width: 100%;
+  max-width: 600px;
+  text-align: left;
+}
+
+.lista-pagos h3 {
+  color: var(--color-primary);
+  text-align: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.lista-pagos ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lista-pagos li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-background-dark);
+  color: var(--color-text-dark);
+}
+
+.lista-pagos li:last-child {
+  border-bottom: none;
+}
+
+.lista-pagos li button {
+  margin-left: var(--spacing-xs);
+  min-width: 80px;
 }
