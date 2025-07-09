@@ -3,17 +3,15 @@ import { useState, useEffect } from 'react';
 const STORAGE_KEY = 'pagos';
 
 export function usePagos() {
-  const [pagos, setPagos] = useState({ bancos: [], dian: [] });
+  // Cargar desde localStorage al iniciar
+  const [pagos, setPagos] = useState(() => {
+    const datosGuardados = localStorage.getItem(STORAGE_KEY);
+    return datosGuardados
+      ? JSON.parse(datosGuardados)
+      : { bancos: [], dian: [] }; // Estructura inicial
+  });
 
-  // Leer del localStorage solo una vez
-  useEffect(() => {
-    const datos = localStorage.getItem(STORAGE_KEY);
-    if (datos) {
-      setPagos(JSON.parse(datos));
-    }
-  }, []);
-
-  // Guardar automáticamente cuando se actualice el estado
+  // Guardar automáticamente al cambiar el estado
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(pagos));
   }, [pagos]);

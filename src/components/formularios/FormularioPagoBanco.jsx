@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-export default function FormularioPagoBanco({ onSubmit }) {
+export default function FormularioPagoBanco({ onSubmit, pago }) {
   const [form, setForm] = useState({
     beneficiario: '',
     cuenta: '',
@@ -11,14 +11,37 @@ export default function FormularioPagoBanco({ onSubmit }) {
     referencia: '',
     metodo: '',
   });
+  
+
+
+  useEffect(() => {
+    if (pago) {
+      setForm(pago);
+    }
+  }, [pago]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleGuardar = () => {
-    onSubmit(form);
+    // Validar campos obligatorios
+    if (
+      !form.beneficiario ||
+      !form.cuenta ||
+      !form.tipoCuenta ||
+      !form.banco ||
+      !form.monto ||
+      !form.fecha ||
+      !form.metodo
+    ) {
+      alert('Por favor completa todos los campos obligatorios');
+      return;
+    }
+  
+    onSubmit(form); // Solo si pasa la validación
   };
+  
 
   return (
     <div>

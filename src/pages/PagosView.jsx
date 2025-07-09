@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { usePagos } from '../hooks/usePagos';
-import CardPago from '../components/CardPago';
-import ModalCrearPago from '../components/modales/ModalCrearPago';
-import ListaPagos from '../components/ListaPagos';
+import React, { useState } from "react";
+import { usePagos } from "../hooks/usePagos";
+import CardPago from "../components/CardPago";
+import ModalCrearPago from "../components/modales/ModalCrearPago";
+import ListaPagos from "../components/ListaPagos";
 
 export default function PagosView() {
   const { pagos, agregarPago, editarPago, eliminarPago } = usePagos();
   const [tipoModal, setTipoModal] = useState(null); // 'bancos' o 'dian'
-  const [modo, setModo] = useState('crear');
+  const [modo, setModo] = useState("crear");
   const [pagoActual, setPagoActual] = useState(null);
   const [mostrarLista, setMostrarLista] = useState(null);
 
@@ -20,7 +20,7 @@ export default function PagosView() {
         pagos={pagos.bancos}
         onCrear={(tipo) => {
           setTipoModal(tipo);
-          setModo('crear');
+          setModo("crear");
           setPagoActual(null);
         }}
         onVer={(tipo) => setMostrarLista(tipo)}
@@ -33,7 +33,7 @@ export default function PagosView() {
         pagos={pagos.dian}
         onCrear={(tipo) => {
           setTipoModal(tipo);
-          setModo('crear');
+          setModo("crear");
           setPagoActual(null);
         }}
         onVer={(tipo) => setMostrarLista(tipo)}
@@ -45,13 +45,14 @@ export default function PagosView() {
           <div className="modal-backdrop"></div>
           <ModalCrearPago
             tipo={tipoModal}
-            onGuardar={modo === 'crear' ? agregarPago : editarPago}
+            modo={modo} // 'editar' o 'crear'
+            pago={pagoActual} // objeto con id incluido
+            onGuardar={modo === "crear" ? agregarPago : editarPago}
             onCerrar={() => {
               setTipoModal(null);
               setPagoActual(null);
-              setModo('crear');
+              setModo("crear");
             }}
-            pago={pagoActual}
           />
         </>
       )}
@@ -63,8 +64,9 @@ export default function PagosView() {
           pagos={pagos[mostrarLista]}
           onEditar={(pago) => {
             setPagoActual(pago);
-            setModo('editar');
-            setTipoModal(mostrarLista); // abrir modal en modo editar
+            setModo("editar");
+            setTipoModal(mostrarLista);
+            setMostrarLista(null);
           }}
           onEliminar={eliminarPago}
           onCerrar={() => setMostrarLista(null)}

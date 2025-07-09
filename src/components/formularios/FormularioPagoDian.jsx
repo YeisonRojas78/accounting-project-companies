@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-export default function FormularioPagoDian({ onSubmit }) {
+export default function FormularioPagoDian({ onSubmit, pago }) {
   const [form, setForm] = useState({
     tipoImpuesto: '',
     periodo: '',
@@ -11,13 +11,33 @@ export default function FormularioPagoDian({ onSubmit }) {
     comprobante: '',
   });
 
+  // Cargar datos al editar
+  useEffect(() => {
+    if (pago) {
+      setForm(pago);
+    }
+  }, [pago]);
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleGuardar = () => {
-    onSubmit(form);
+    // Validar campos obligatorios
+    if (
+      !form.tipoImpuesto ||
+      !form.periodo ||
+      !form.valor ||
+      !form.fecha ||
+      !form.metodo
+    ) {
+      alert('Faltan campos obligatorios');
+      return;
+    }
+  
+    onSubmit(form); // Solo si pasa la validación
   };
+  
 
   return (
     <div>
@@ -59,4 +79,3 @@ export default function FormularioPagoDian({ onSubmit }) {
     </div>
   );
 }
-
