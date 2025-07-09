@@ -11,8 +11,6 @@ export default function FormularioPagoBanco({ onSubmit, pago }) {
     referencia: '',
     metodo: '',
   });
-  
-
 
   useEffect(() => {
     if (pago) {
@@ -25,7 +23,6 @@ export default function FormularioPagoBanco({ onSubmit, pago }) {
   };
 
   const handleGuardar = () => {
-    // Validar campos obligatorios
     if (
       !form.beneficiario ||
       !form.cuenta ||
@@ -38,13 +35,12 @@ export default function FormularioPagoBanco({ onSubmit, pago }) {
       alert('Por favor completa todos los campos obligatorios');
       return;
     }
-  
-    onSubmit(form); // Solo si pasa la validación
+
+    onSubmit(form);
   };
-  
 
   return (
-    <div>
+    <form className="form-grid" onSubmit={(e) => e.preventDefault()}>
       <label>Nombre del beneficiario:</label>
       <input name="beneficiario" value={form.beneficiario} onChange={handleChange} />
 
@@ -83,7 +79,11 @@ export default function FormularioPagoBanco({ onSubmit, pago }) {
         <option>Efectivo</option>
       </select>
 
-      <button onClick={handleGuardar}>Guardar</button>
-    </div>
+      <div className="btns">
+        <button type="button" className="btn-guardar" onClick={handleGuardar}>Guardar</button>
+        
+      </div>
+    </form>
   );
 }
+

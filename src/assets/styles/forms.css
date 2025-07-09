@@ -1,63 +1,126 @@
-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-  
-  form label {
-    grid-column: span 2;
-    font-weight: bold;
-    margin-top: 10px;
-  }
-  
-  input, select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-  
-  button {
-    padding: 10px 16px;
-    border: none;
-    background-color: var(--color-primary);
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 20px;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  .form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-sm);
-    align-items: center;
-  }
-  
-  .form-grid label {
-    grid-column: span 2;
-    font-weight: 600;
-    margin-top: 10px;
-  }
-  
-  .form-grid input,
-  .form-grid select {
-    width: 100%;
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid var(--color-border);
-    font-size: 1rem;
-  }
-  
-  .form-grid .btns {
-    grid-column: span 2;
-    display: flex;
-    justify-content: center;
-    gap: var(--spacing-sm);
-    margin-top: var(--spacing-sm);
-  }
+
+/* Contenedor del formulario */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  max-width: 600px;
+  margin: auto;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 14px;
+}
+
+/* Labels */
+.form-grid label {
+  grid-column: span 2;
+  color: #222;
+  font-weight: 500;
+}
+
+/* Inputs y selects */
+.form-grid input,
+.form-grid select {
+  grid-column: span 2;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #f7f9fa;
+  transition: border 0.3s ease-in-out;
+}
+
+.form-grid input:focus,
+.form-grid select:focus {
+  border-color: #5c9ded;
+  background-color: #fff;
+  outline: none;
+}
+
+/* Botonera */
+.btns {
+  grid-column: span 2;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Botón guardar */
+.btn-guardar {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-guardar:hover {
+  background-color: #218838;
+}
+
+/* Botón cancelar */
+.btn-cancelar {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-cancelar:hover {
+  background-color: #c82333;
+}
+
+
+  .card button {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease, box-shadow 0.2s ease;
+  margin: var(--spacing-xs);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* ✅ sombra en botones */
+}
+
+.card button:hover {
+  background-color: #0056b3; /* ✅ hover más oscuro */
+}
+
+.card .btn-ver {
+  background-color: #eea111;
+}
+
+.card .btn-ver:hover {
+  background-color: #fad946;
+}
+
+.card .btn-editar {
+  background-color: #22c55e;
+}
+
+.card .btn-editar:hover {
+  background-color: #16a34a;
+}
+
+.card .btn-eliminar {
+  background-color: #ef4444;
+}
+
+.card .btn-eliminar:hover {
+  background-color: #dc2626;
+}
+
   

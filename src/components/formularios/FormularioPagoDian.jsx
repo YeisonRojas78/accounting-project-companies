@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 export default function FormularioPagoDian({ onSubmit, pago }) {
   const [form, setForm] = useState({
-    tipoImpuesto: '',
-    periodo: '',
-    referencia: '',
-    valor: '',
-    fecha: '',
-    metodo: '',
-    comprobante: '',
+    tipoImpuesto: "",
+    periodo: "",
+    referencia: "",
+    valor: "",
+    fecha: "",
+    metodo: "",
+    comprobante: "",
   });
 
   // Cargar datos al editar
@@ -31,18 +31,21 @@ export default function FormularioPagoDian({ onSubmit, pago }) {
       !form.fecha ||
       !form.metodo
     ) {
-      alert('Faltan campos obligatorios');
+      alert("Faltan campos obligatorios");
       return;
     }
-  
+
     onSubmit(form); // Solo si pasa la validación
   };
-  
 
   return (
-    <div>
+    <form className="form-grid" onSubmit={(e) => e.preventDefault()}>
       <label>Tipo de impuesto:</label>
-      <select name="tipoImpuesto" onChange={handleChange} value={form.tipoImpuesto}>
+      <select
+        name="tipoImpuesto"
+        onChange={handleChange}
+        value={form.tipoImpuesto}
+      >
         <option value="">Seleccione</option>
         <option>IVA</option>
         <option>Renta</option>
@@ -55,13 +58,28 @@ export default function FormularioPagoDian({ onSubmit, pago }) {
       <input name="periodo" value={form.periodo} onChange={handleChange} />
 
       <label>Número de referencia:</label>
-      <input name="referencia" value={form.referencia} onChange={handleChange} />
+      <input
+        name="referencia"
+        value={form.referencia}
+        onChange={handleChange}
+      />
 
       <label>Valor a pagar:</label>
-      <input type="number" name="valor" step="0.01" value={form.valor} onChange={handleChange} />
+      <input
+        type="number"
+        name="valor"
+        step="0.01"
+        value={form.valor}
+        onChange={handleChange}
+      />
 
       <label>Fecha de pago:</label>
-      <input type="date" name="fecha" value={form.fecha} onChange={handleChange} />
+      <input
+        type="date"
+        name="fecha"
+        value={form.fecha}
+        onChange={handleChange}
+      />
 
       <label>Método de pago:</label>
       <select name="metodo" value={form.metodo} onChange={handleChange}>
@@ -73,9 +91,17 @@ export default function FormularioPagoDian({ onSubmit, pago }) {
       </select>
 
       <label>Comprobante de pago:</label>
-      <input name="comprobante" value={form.comprobante} onChange={handleChange} />
+      <input
+        name="comprobante"
+        value={form.comprobante}
+        onChange={handleChange}
+      />
 
-      <button onClick={handleGuardar}>Guardar</button>
-    </div>
+      <div className="btns">
+        <button type="button" className="btn-guardar" onClick={handleGuardar}>
+          Guardar
+        </button>
+      </div>
+    </form>
   );
 }

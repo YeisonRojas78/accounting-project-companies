@@ -1,16 +1,16 @@
 .card {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transition: transform 0.2s;
-  }
-  
-  .card:hover {
-    transform: scale(1.02);
-  }
-  
-  .card h3 {
-    margin-top: 0;
-  }
+  background-color: rgb(211, 208, 208);
+  padding: var(--spacing-md);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12); /* ✅ sombra elegante */
+  border: 1px solid var(--color-border);
+  max-width: 340px;
+  width: 100%;
+  text-align: center; /* ✅ centra todo el texto */
+  transition: transform 0.2s ease;
+  height: 150px;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}

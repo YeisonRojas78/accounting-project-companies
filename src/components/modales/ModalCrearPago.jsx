@@ -14,7 +14,7 @@ export default function ModalCrearPago({ tipo, modo, pago, onGuardar, onCerrar }
   };
 
   return (
-    <div className="modal">
+    <div className="modal modal-agregar">
       <h2>{modo === 'editar' ? 'Editar' : 'Crear'} pago: {tipo === 'dian' ? 'DIAN' : 'Banco'}</h2>
 
       {tipo === 'dian' ? (
@@ -23,7 +23,7 @@ export default function ModalCrearPago({ tipo, modo, pago, onGuardar, onCerrar }
         <FormularioPagoBanco pago={pago} onSubmit={handleSubmit} />
       )}
 
-      <button onClick={onCerrar}>Cancelar</button>
+      <button className="btn-cerrar-modal" onClick={onCerrar}>Cerrar</button>
     </div>
   );
 }

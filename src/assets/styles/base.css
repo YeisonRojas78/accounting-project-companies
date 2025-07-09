@@ -9,6 +9,6 @@
   body {
     margin: 0;
     font-family: var(--font-main);
-    background-color: var(--bg-contrast);
+    background-color: rgb(255, 255, 255);
     color: #333;
   }
