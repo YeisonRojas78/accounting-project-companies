@@ -1,0 +1,25 @@
+.tabla-pagos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .tabla-pagos th, .tabla-pagos td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: left;
+  }
+  
+  .tabla-pagos th {
+    background-color: #f4f6f8;
+    font-weight: 600;
+  }
+  
+  .tabla-pagos tr:hover {
+    background-color: #f9f9f9;
+  }
+  

@@ -1,0 +1,14 @@
+:root {
+    --color-primary: #007bff;
+    --color-danger: #dc3545;
+    --color-success: #28a745;
+    --bg-contrast: #f0f4f8;
+    --font-main: 'Segoe UI', sans-serif;
+  }
+  
+  body {
+    margin: 0;
+    font-family: var(--font-main);
+    background-color: var(--bg-contrast);
+    color: #333;
+  }

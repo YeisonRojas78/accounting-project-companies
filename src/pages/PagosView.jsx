@@ -52,6 +52,7 @@ export default function PagosView() {
               setTipoModal(null);
               setPagoActual(null);
               setModo("crear");
+              setMostrarLista(null);
             }}
           />
         </>
