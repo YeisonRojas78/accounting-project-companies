@@ -19,6 +19,7 @@ export default function TablaPagos({ tipo, pagos, onEditar, onEliminar }) {
               <th>Beneficiario</th>
               <th>Cuenta</th>
               <th>Banco</th>
+              <th>Método</th>
               <th>Monto</th>
               <th>Fecha</th>
               <th>Acciones</th>
@@ -31,19 +32,20 @@ export default function TablaPagos({ tipo, pagos, onEditar, onEliminar }) {
           <tr key={pago.id}>
             {tipo === 'dian' ? (
               <>
-                <td>{pago.tipoImpuesto}</td>
-                <td>{pago.periodo}</td>
-                <td>${pago.valor}</td>
-                <td>{pago.fecha}</td>
-                <td>{pago.metodo}</td>
+                <td>{pago.tipoImpuesto?.nombre || '---'}</td>
+                <td>{pago.periodo || '---'}</td>
+                <td>${pago.valor?.toLocaleString() || 0}</td>
+                <td>{pago.fecha || '---'}</td>
+                <td>{pago.metodoPago?.nombre || '---'}</td>
               </>
             ) : (
               <>
-                <td>{pago.beneficiario}</td>
-                <td>{pago.cuenta}</td>
-                <td>{pago.banco}</td>
-                <td>${pago.monto}</td>
-                <td>{pago.fecha}</td>
+                <td>{pago.nombreBeneficiario || '---'}</td>
+                <td>{pago.numeroCuenta || '---'}</td>
+                <td>{pago.banco?.nombre || '---'}</td>
+                <td>{pago.metodoPago?.nombre || '---'}</td>
+                <td>${pago.monto?.toLocaleString() || 0}</td>
+                <td>{pago.fecha || '---'}</td>
               </>
             )}
             <td>

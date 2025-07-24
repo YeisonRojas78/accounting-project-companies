@@ -1,0 +1,80 @@
+import json
+import uuid
+
+def create_id():
+    return str(uuid.uuid4())
+
+# Plantilla base de proyecto StarUML (versión 2)
+project = {
+    "_type": "Project",
+    "_id": create_id(),
+    "name": "SistemaVentas",
+    "ownedElements": [],
+    "extensions": []
+}
+
+# Crear un model root (main UML model)
+model = {
+    "_type": "UMLModel",
+    "_id": create_id(),
+    "name": "Modelo",
+    "ownedElements": []
+}
+project["ownedElements"].append(model)
+
+# Diccionario para mapear nombres a IDs
+class_id_map = {}
+
+# Crear clases UML con atributos
+for entidad, atributos in entidades.items():
+    class_id = create_id()
+    class_id_map[entidad] = class_id
+    uml_class = {
+        "_type": "UMLClass",
+        "_id": class_id,
+        "name": entidad,
+        "visibility": "public",
+        "ownedAttributes": [
+            {
+                "_type": "UMLAttribute",
+                "_id": create_id(),
+                "name": attr.split(":")[0].replace("+", "").strip(),
+                "visibility": "public",
+                "type": attr.split(":")[1].strip() if ":" in attr else "String"
+            } for attr in atributos
+        ]
+    }
+    model["ownedElements"].append(uml_class)
+
+# Crear asociaciones (relaciones entre clases)
+for origen, destino, mult_origen, mult_destino in relaciones:
+    assoc = {
+        "_type": "UMLAssociation",
+        "_id": create_id(),
+        "end1": {
+            "_type": "UMLAssociationEnd",
+            "_id": create_id(),
+            "reference": class_id_map[origen],
+            "visibility": "public",
+            "name": "",
+            "multiplicity": mult_origen,
+            "aggregation": "none"
+        },
+        "end2": {
+            "_type": "UMLAssociationEnd",
+            "_id": create_id(),
+            "reference": class_id_map[destino],
+            "visibility": "public",
+            "name": "",
+            "multiplicity": mult_destino,
+            "aggregation": "none"
+        }
+    }
+    model["ownedElements"].append(assoc)
+
+# Guardar archivo como .mdj (JSON de StarUML)
+mdj_path = "/mnt/data/SistemaVentas.mdj"
+with open(mdj_path, "w", encoding="utf-8") as f:
+    json.dump(project, f, indent=2)
+
+mdj_path
