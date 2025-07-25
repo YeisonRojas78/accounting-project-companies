@@ -7,11 +7,12 @@ export default function TablaPagos({ tipo, pagos, onEditar, onEliminar }) {
         <tr>
           {tipo === 'dian' ? (
             <>
-              <th>Tipo Impuesto</th>
-              <th>Periodo</th>
+              <th>Referencia</th>
               <th>Valor</th>
               <th>Fecha</th>
+              <th>Impuesto</th>
               <th>Método</th>
+              <th>Comprobante</th>
               <th>Acciones</th>
             </>
           ) : (
@@ -21,7 +22,7 @@ export default function TablaPagos({ tipo, pagos, onEditar, onEliminar }) {
               <th>Banco</th>
               <th>Método</th>
               <th>Monto</th>
-              <th>Fecha</th>
+              <th>Referencia</th>
               <th>Acciones</th>
             </>
           )}
@@ -32,20 +33,21 @@ export default function TablaPagos({ tipo, pagos, onEditar, onEliminar }) {
           <tr key={pago.id}>
             {tipo === 'dian' ? (
               <>
-                <td>{pago.tipoImpuesto?.nombre || '---'}</td>
-                <td>{pago.periodo || '---'}</td>
-                <td>${pago.valor?.toLocaleString() || 0}</td>
-                <td>{pago.fecha || '---'}</td>
-                <td>{pago.metodoPago?.nombre || '---'}</td>
+                <td>{pago.NumeroReferencia}</td>
+                <td>${pago.MontoTotal?.toLocaleString() || 0}</td>
+                <td>{new Date(pago.FechaPago).toLocaleDateString()}</td>
+                <td>{pago.tipoImpuesto || '---'}</td>
+                <td>{pago.metodoPago || '---'}</td>
+                <td>{pago.ComprobantePago || '---'}</td>
               </>
             ) : (
               <>
-                <td>{pago.nombreBeneficiario || '---'}</td>
-                <td>{pago.numeroCuenta || '---'}</td>
-                <td>{pago.banco?.nombre || '---'}</td>
-                <td>{pago.metodoPago?.nombre || '---'}</td>
-                <td>${pago.monto?.toLocaleString() || 0}</td>
-                <td>{pago.fecha || '---'}</td>
+                <td>{pago.NombreBeneficiario || '---'}</td>
+                <td>{pago.NumeroCuenta || '---'}</td>
+                <td>{pago.banco || '---'}</td>
+                <td>{pago.metodoPago || '---'}</td>
+                <td>${pago.MontoTotal?.toLocaleString() || 0}</td>
+                <td>{pago.ReferenciaPago || '---'}</td>
               </>
             )}
             <td>

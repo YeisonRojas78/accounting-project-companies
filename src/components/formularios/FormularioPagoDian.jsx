@@ -39,6 +39,10 @@ export default function FormularioPagoDian({ onSubmit, pago, usuarioId }) {
       alert("Faltan campos obligatorios");
       return;
     }
+    if (parseFloat(form.MontoTotal) < 0) {
+      alert('El monto no puede ser negativo');
+      return;
+    }
 
     const datos = {
       ...form,
@@ -74,6 +78,7 @@ export default function FormularioPagoDian({ onSubmit, pago, usuarioId }) {
         type="number"
         step="0.01"
         name="MontoTotal"
+        min="0"
         value={form.MontoTotal}
         onChange={handleChange}
       />

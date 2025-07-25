@@ -1,32 +1,36 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const API_BASE = 'http://localhost:3001/api';
+const API_BASE = 'http://localhost:3000/api';
 
 export function usePagos() {
   const [pagos, setPagos] = useState({ bancos: [], dian: [] });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Cargar datos al iniciar
-  useEffect(() => {
-    const cargarPagos = async () => {
-      try {
-        const [resBancos, resDian] = await Promise.all([
-          axios.get(`${API_BASE}/pagos-bancos`),
-          axios.get(`${API_BASE}/pagos-dian`)
-        ]);
-        setPagos({
-          bancos: resBancos.data,
-          dian: resDian.data,
-        });
-      } catch (err) {
-        console.error('Error al cargar pagos', err);
-        setError(`Error al cargar pagos: ${err.message}`);
-        setLoading(false);
-      }
-    };
+  // Función para cargar pagos desde la API
+  const cargarPagos = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const [resBancos, resDian] = await Promise.all([
+        axios.get(`${API_BASE}/pagos-bancos`),
+        axios.get(`${API_BASE}/pagos-dian`)
+      ]);
+      setPagos({
+        bancos: resBancos.data,
+        dian: resDian.data,
+      });
+    } catch (err) {
+      console.error('Error al cargar pagos', err);
+      setError(`Error al cargar pagos: ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  // Cargar automáticamente al montar
+  useEffect(() => {
     cargarPagos();
   }, []);
 
@@ -77,6 +81,7 @@ export function usePagos() {
     agregarPago,
     editarPago,
     eliminarPago,
+    cargarPagos, // <-- Esta es la nueva función
     loading,
     error,
   };

@@ -1,20 +1,30 @@
 import React, { useState, useEffect } from 'react';
 
-export default function FormularioPagoBanco({ onSubmit, pago }) {
+export default function FormularioPagoBanco({ onSubmit, pago, usuarioId }) {
   const [form, setForm] = useState({
-    beneficiario: '',
-    cuenta: '',
+    NombreBeneficiario: '',
+    NumeroCuenta: '',
     tipoCuenta: '',
     banco: '',
-    monto: '',
-    fecha: '',
-    referencia: '',
-    metodo: '',
+    MontoTotal: '',
+    FechaPago: '',
+    ReferenciaPago: '',
+    metodoPago: '',
   });
 
+  // Cargar datos al editar
   useEffect(() => {
     if (pago) {
-      setForm(pago);
+      setForm({
+        NombreBeneficiario: pago.NombreBeneficiario || '',
+        NumeroCuenta: pago.NumeroCuenta || '',
+        tipoCuenta: pago.tipoCuenta || '',
+        banco: pago.banco || '',
+        MontoTotal: pago.MontoTotal || '',
+        FechaPago: pago.FechaPago?.split('T')[0] || '',
+        ReferenciaPago: pago.ReferenciaPago || '',
+        metodoPago: pago.metodoPago || '',
+      });
     }
   }, [pago]);
 
@@ -24,66 +34,102 @@ export default function FormularioPagoBanco({ onSubmit, pago }) {
 
   const handleGuardar = () => {
     if (
-      !form.beneficiario ||
-      !form.cuenta ||
+      !form.NombreBeneficiario ||
+      !form.NumeroCuenta ||
       !form.tipoCuenta ||
       !form.banco ||
-      !form.monto ||
-      !form.fecha ||
-      !form.metodo
+      !form.MontoTotal ||
+      !form.FechaPago ||
+      !form.ReferenciaPago ||
+      !form.metodoPago
     ) {
-      alert('Por favor completa todos los campos obligatorios');
+      alert('Faltan campos obligatorios');
+      return;
+    }
+    if (parseFloat(form.MontoTotal) < 0) {
+      alert('El monto no puede ser negativo');
       return;
     }
 
-    onSubmit(form);
+    const datos = {
+      ...form,
+      MontoTotal: parseFloat(form.MontoTotal),
+      FechaPago: new Date(form.FechaPago),
+      usuarioId: usuarioId || 1, // ⚠️ Asegúrate de pasar un usuario válido
+    };
+
+    onSubmit(datos);
   };
 
   return (
     <form className="form-grid" onSubmit={(e) => e.preventDefault()}>
       <label>Nombre del beneficiario:</label>
-      <input name="beneficiario" value={form.beneficiario} onChange={handleChange} />
+      <input
+        name="NombreBeneficiario"
+        value={form.NombreBeneficiario}
+        onChange={handleChange}
+      />
 
       <label>Número de cuenta:</label>
-      <input name="cuenta" value={form.cuenta} onChange={handleChange} />
+      <input
+        name="NumeroCuenta"
+        value={form.NumeroCuenta}
+        onChange={handleChange}
+      />
 
       <label>Tipo de cuenta:</label>
       <select name="tipoCuenta" value={form.tipoCuenta} onChange={handleChange}>
         <option value="">Seleccione</option>
-        <option>Ahorros</option>
-        <option>Corriente</option>
+        <option value="Ahorros">Ahorros</option>
+        <option value="Corriente">Corriente</option>
       </select>
 
       <label>Banco:</label>
       <select name="banco" value={form.banco} onChange={handleChange}>
         <option value="">Seleccione</option>
-        <option>Bancolombia</option>
-        <option>Davivienda</option>
-        <option>BBVA</option>
+        <option value="Bancolombia">Bancolombia</option>
+        <option value="Davivienda">Davivienda</option>
+        <option value="BBVA">BBVA</option>
       </select>
 
       <label>Monto a pagar:</label>
-      <input type="number" name="monto" step="0.01" value={form.monto} onChange={handleChange} />
+      <input
+        type="number"
+        name="MontoTotal"
+        step="0.01"
+        min="0"
+        value={form.MontoTotal}
+        onChange={handleChange}
+      />
 
       <label>Fecha de pago:</label>
-      <input type="date" name="fecha" value={form.fecha} onChange={handleChange} />
+      <input
+        type="date"
+        name="FechaPago"
+        value={form.FechaPago}
+        onChange={handleChange}
+      />
 
       <label>Referencia o factura:</label>
-      <input name="referencia" value={form.referencia} onChange={handleChange} />
+      <input
+        name="ReferenciaPago"
+        value={form.ReferenciaPago}
+        onChange={handleChange}
+      />
 
       <label>Método de pago:</label>
-      <select name="metodo" value={form.metodo} onChange={handleChange}>
+      <select name="metodoPago" value={form.metodoPago} onChange={handleChange}>
         <option value="">Seleccione</option>
-        <option>Transferencia</option>
-        <option>PSE</option>
-        <option>Efectivo</option>
+        <option value="Transferencia">Transferencia</option>
+        <option value="PSE">PSE</option>
+        <option value="Efectivo">Efectivo</option>
       </select>
 
       <div className="btns">
-        <button type="button" className="btn-guardar" onClick={handleGuardar}>Guardar</button>
-        
+        <button type="button" className="btn-guardar" onClick={handleGuardar}>
+          Guardar
+        </button>
       </div>
     </form>
   );
 }
-
